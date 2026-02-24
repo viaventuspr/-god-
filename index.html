@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ශ්‍රී දේව මන්ත්‍ර ගුරුකම් සේවා</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@300;400;600;700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --deep-gold: #8b6914;
+    --crimson: #8b0000;
+    --dark: #0d0a05;
+    --mid: #1a1206;
+    --smoke: #f5ede0;
+    --accent: #e8c56d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--smoke);
+    font-family: 'Noto Serif Sinhala', serif;
+    overflow-x: hidden;
+  }
+
+  /* Particle background */
+  .particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: float linear infinite;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: radial-gradient(ellipse at top, rgba(139,0,0,0.4) 0%, transparent 70%);
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .om-symbol {
+    font-size: 4rem;
+    color: var(--gold);
+    animation: pulse 3s ease-in-out infinite;
+    display: block;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(201,168,76,0.8), 0 0 60px rgba(201,168,76,0.4);
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.85; }
+  }
+
+  header h1 {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 20px rgba(201,168,76,0.5);
+    margin-bottom: 8px;
+  }
+
+  header .subtitle {
+    font-size: 1.1rem;
+    color: var(--accent);
+    opacity: 0.85;
+    margin-bottom: 20px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 16px auto;
+    max-width: 400px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .divider span { color: var(--gold); font-size: 1.2rem; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,10,5,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  nav a {
+    color: var(--smoke);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+  }
+  nav a:hover {
+    color: var(--gold);
+    border-color: rgba(201,168,76,0.4);
+    background: rgba(201,168,76,0.08);
+  }
+
+  /* HERO BANNER */
+  .hero {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(180deg, rgba(139,0,0,0.15) 0%, transparent 100%);
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border: 1px solid var(--gold);
+    border-radius: 30px;
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-bottom: 24px;
+    letter-spacing: 0.1em;
+  }
+
+  .hero h2 {
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    line-height: 1.3;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--smoke) 0%, var(--gold) 50%, var(--smoke) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    max-width: 650px;
+    margin: 0 auto 36px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(245,237,224,0.8);
+  }
+
+  .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--crimson), #c0392b);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Noto Serif Sinhala', serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(139,0,0,0.4);
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(139,0,0,0.6);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Noto Serif Sinhala', serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline:hover {
+    background: rgba(201,168,76,0.1);
+    transform: translateY(-2px);
+  }
+
+  /* STATS */
+  .stats {
+    position: relative;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    max-width: 800px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    gap: 1px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .stat {
+    background: var(--mid);
+    text-align: center;
+    padding: 30px 20px;
+  }
+  .stat .num {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+  .stat .label { font-size: 0.85rem; opacity: 0.7; margin-top: 6px; }
+
+  /* SECTION WRAPPER */
+  section {
+    position: relative;
+    z-index: 5;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 20px;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .section-title h3 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .section-title p { opacity: 0.7; max-width: 550px; margin: 0 auto; line-height: 1.7; }
+
+  /* SERVICE CARDS */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .service-card {
+    background: linear-gradient(135deg, rgba(26,18,6,0.9), rgba(13,10,5,0.95));
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px;
+    padding: 32px 24px;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+  .service-card:hover::before { transform: translateX(0); }
+  .service-card:hover {
+    border-color: rgba(201,168,76,0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .card-title {
+    font-size: 1.15rem;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .card-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    opacity: 0.75;
+    margin-bottom: 16px;
+  }
+  .card-price {
+    font-size: 0.85rem;
+    color: var(--accent);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-bg {
+    background: linear-gradient(180deg, transparent, rgba(139,0,0,0.08), transparent);
+    position: relative;
+    z-index: 5;
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .testi-card {
+    background: rgba(26,18,6,0.6);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 8px;
+    padding: 28px 24px;
+    position: relative;
+  }
+  .testi-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 5rem;
+    color: var(--gold);
+    opacity: 0.2;
+    line-height: 1;
+    font-family: serif;
+  }
+  .testi-text { font-size: 0.92rem; line-height: 1.8; opacity: 0.85; margin-bottom: 16px; }
+  .testi-author { color: var(--gold); font-size: 0.88rem; font-weight: 600; }
+  .testi-loc { font-size: 0.8rem; opacity: 0.5; }
+
+  .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 12px; letter-spacing: 2px; }
+
+  /* CONTACT */
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 700px) { .contact-wrapper { grid-template-columns: 1fr; } }
+
+  .contact-info h4 { color: var(--gold); font-size: 1.2rem; margin-bottom: 20px; }
+  .contact-info p { line-height: 1.9; opacity: 0.8; margin-bottom: 12px; font-size: 0.95rem; }
+  .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 6px;
+  }
+  .contact-detail .icon { font-size: 1.3rem; }
+  .contact-detail .info { font-size: 0.9rem; }
+  .contact-detail .info strong { color: var(--gold); display: block; font-size: 0.8rem; opacity: 0.7; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.85rem; color: var(--accent); }
+  .form-group input, .form-group textarea, .form-group select {
+    background: rgba(26,18,6,0.8);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--smoke);
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-family: 'Noto Serif Sinhala', serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--gold);
+  }
+  .form-group textarea { min-height: 100px; resize: vertical; }
+  .form-group select option { background: #1a1206; }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    background: rgba(13,10,5,0.8);
+  }
+  footer p { opacity: 0.5; font-size: 0.85rem; line-height: 1.8; }
+  footer .footer-logo { color: var(--gold); font-size: 1.2rem; margin-bottom: 12px; }
+
+  /* Floating lamp animation */
+  .lamp {
+    position: fixed;
+    bottom: 30px; right: 30px;
+    z-index: 200;
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--crimson), #8b0000);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 0 20px rgba(139,0,0,0.6), 0 0 40px rgba(201,168,76,0.3);
+    cursor: pointer;
+    animation: glow 2s ease-in-out infinite alternate;
+    text-decoration: none;
+  }
+  @keyframes glow {
+    from { box-shadow: 0 0 15px rgba(139,0,0,0.5), 0 0 30px rgba(201,168,76,0.2); }
+    to   { box-shadow: 0 0 25px rgba(139,0,0,0.8), 0 0 50px rgba(201,168,76,0.5); }
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    nav a { font-size: 0.8rem; padding: 6px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/94XXXXXXXXX" class="lamp" title="WhatsApp">📲</a>
+
+<!-- HEADER -->
+<header>
+  <span class="om-symbol">🕉</span>
+  <h1>ශ්‍රී දේව මන්ත්‍ර ගුරුකම් සේවා</h1>
+  <p class="subtitle">ශ්‍රී ලාංකේය ඉපැරණි ගුරුකම් සහ දේවාල ශාස්ත්‍රය</p>
+  <div class="divider"><span>✦</span></div>
+  <p style="font-size:0.9rem;opacity:0.65;">ගෙදර ඇති ගැටලුවලට • ව්‍යාපාරික ගැටලුවලට • ආදර ගැටලුවලට</p>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#services">🔱 සේවාවන්</a>
+  <a href="#about">📿 අප ගැන</a>
+  <a href="#testimonials">⭐ විශ්වාස</a>
+  <a href="#contact">📞 සම්බන්ධ වන්න</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🔥 අනුභව ශාස්ත්‍ර • 30+ වසර අත්දැකීම</div>
+  <h2>ඔබේ ජීවිතයේ<br>ගැටලු විසඳීමට<br>ඉපැරණි ශාස්ත්‍රය</h2>
+  <p>
+    යන්ත්‍ර, මන්ත්‍ර, ගුරුකම් ශාස්ත්‍රය ඔස්සේ ඔබේ ගෙදර ගැටලු, ආදර ගැටලු, ව්‍යාපාරික ගැටලු, 
+    සතුරු කරකාවල් ඇතුළු සියලු ගැටලු ස්ථිරවම විසඳීමට ශ්‍රී දේව ගුරු සේවාව සූදානම්.
+  </p>
+  <div class="cta-group">
+    <a href="#contact" class="btn-primary">🔱 දැන් සම්බන්ධ වන්න</a>
+    <a href="#services" class="btn-outline">📿 සේවාවන් බලන්න</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <span class="num">5000+</span>
+    <div class="label">සාර්ථක සේවාවන්</div>
+  </div>
+  <div class="stat">
+    <span class="num">30+</span>
+    <div class="label">වසර අත්දැකීම</div>
+  </div>
+  <div class="stat">
+    <span class="num">24/7</span>
+    <div class="label">සේවා කාලය</div>
+  </div>
+  <div class="stat">
+    <span class="num">100%</span>
+    <div class="label">රහස්‍යභාවය</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-title">
+    <h3>🔱 අපගේ සේවාවන්</h3>
+    <p>ඉපැරණි ශාස්ත්‍රය ඔස්සේ ඔබේ ජීවිතය හොඳ කර ගන්න</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="card-icon">❤️‍🔥</span>
+      <div class="card-title">ආදර ගැටලු විසඳීම</div>
+      <div class="card-desc">
+        헤어진ආදරවන්තයා ආපසු ගෙනවිත්, ආදර සම්බන්ධතා ශක්තිමත් කිරීම, 
+        විවාහ ගැටලු නිරාකරණය, ද්වේශ කරකාවල් ඉවත් කිරීම.
+      </div>
+      <div class="card-price">☎️ දුරකථනෙන් විමසන්න</div>
+    </div>
+
+    <div class="service-card">
+      <span class="card-icon">💰</span>
+      <div class="card-title">ව්‍යාපාරික ශ්‍රේෂ්ඨත්වය</div>
+      <div class="card-desc">
+        ව්‍යාපාරයට සෙත් ශාන්තිකර්ම, ලාභ ලැබීමට මන්ත්‍ර, ණය ගැටලු ඉවත් කිරීම, 
+        ව්‍යාපාරිකයන් අතර ඇති ශත්‍රු ක්‍රියා නිෂ්ක්‍රීය කිරීම.
+      </div>
+      <div class="card-price">☎️ දුරකථනෙන් විමසන්න</div>
+    </div>
+
+    <div class="service-card">
+      <span class="card-icon">🏠</span>
+      <div class="card-title">ගෙදර ශාන්තිකර්ම</div>
+      <div class="card-desc">
+        ගෙදර ඇති ඩෙව් කොල්ල, ශාප, ශාන්තිකර්ම, ගෘහ වාස්තු ශාස්ත්‍ර, 
+        ගෙදරට ලැබෙන සෙත් රැකවරණ යන්ත්‍ර සකස් කිරීම.
+      </div>
+      <div class="card-price">☎️ දුරකථනෙන් විමසන්න</div>
+    </div>
+
+    <div class="service-card">
+      <span class="card-icon">⚔️</span>
+      <div class="card-title">සතුරු ක්‍රියා ඉවත් කිරීම</div>
+      <div class="card-desc">
+        ශාපය, ගිනිකෙළි, හූනියම්, දෝශ ඉවත් කිරීම, 
+        ශත්‍රූන්ගේ නරක ක්‍රියා නිෂ්ක්‍රීය කිරීමට ශක්තිමත් ශාස්ත්‍ර.
+      </div>
+      <div class="card-price">☎️ දුරකථනෙන් විමසන්න</div>
+    </div>
+
+    <div class="service-card">
+      <span class="card-icon">🧿</span>
+      <div class="card-title">රැකවරණ යන්ත්‍ර</div>
+      <div class="card-desc">
+        ඔබ, ඔබේ ගෙදර, ව්‍යාපාරය රැකෙන ශ්‍රේෂ්ඨ යන්ත්‍ර සකස් කිරීම. 
+        ත්‍රිකෝෂ යන්ත්‍ර, ජල යන්ත්‍ර, ආකර්ෂණ යන්ත්‍ර.
+      </div>
+      <div class="card-price">☎️ දුරකථනෙන් විමසන්න</div>
+    </div>
+
+    <div class="service-card">
+      <span class="card-icon">🌟</span>
+      <div class="card-title">ජ්‍යොතිෂ සහ ග්‍රහ දෝශ</div>
+      <div class="card-desc">
+        ජන්ම ලග්නය, ග්‍රහ දෝශ ශාන්තිය, ශනි, රාහු, කේතු දෝශ නිෂ්ඵල කිරීමට 
+        ශ්‍රේෂ්ඨ ශාස්ත්‍රය.
+      </div>
+      <div class="card-price">☎️ දුරකථනෙන් විමසන්න</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background: linear-gradient(135deg, rgba(139,0,0,0.05), transparent); border-radius: 16px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+    <div>
+      <div style="color: var(--gold); font-size: 0.85rem; letter-spacing: 0.15em; margin-bottom: 12px;">📿 අප ගැන</div>
+      <h3 style="font-size: clamp(1.4rem, 3vw, 2rem); color: var(--smoke); line-height: 1.4; margin-bottom: 20px;">
+        30+ වසරක ශාස්ත්‍රීය<br>
+        <span style="color: var(--gold);">අත්දැකීමකින් )</span><br>
+        ඔබේ ජීවිතය හොඳ කරන්නට
+      </h3>
+      <p style="opacity: 0.75; line-height: 1.9; margin-bottom: 16px; font-size: 0.95rem;">
+        ශ්‍රී ලාංකේය ඉපැරණි ශාස්ත්‍ර ක්‍රමවේදය ඉගෙන, ශ්‍රී ලාංකාවේ ප්‍රසිද්ධ ගුරුලා 
+        ලඟ ඉගෙනගෙන, 30 වසරකට අධික කාලයක් ජනතාවගේ ගැටලු විසඳීමේ 
+        අත්දැකීමෙන් අප ඔබේ සේවයේ නිරත වෙමු.
+      </p>
+      <p style="opacity: 0.75; line-height: 1.9; font-size: 0.95rem;">
+        රහස්‍යභාවය, ශ්‍රේෂ්ඨ ශාස්ත්‍රය, ගුණාත්මක සේවාව — ඒවා අපේ ජීවිතයේ මූලධර්ම.
+      </p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; padding: 20px 24px; display: flex; gap: 16px; align-items: center;">
+        <span style="font-size:2rem;">🔱</span>
+        <div>
+          <div style="color:var(--gold); font-weight:600; margin-bottom:4px;">ඉපැරණි ශාස්ත්‍ර ක්‍රමවේදය</div>
+          <div style="font-size:0.85rem; opacity:0.7;">පරම්පරාගත දේශීය ශාස්ත්‍ර</div>
+        </div>
+      </div>
+      <div style="background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; padding: 20px 24px; display: flex; gap: 16px; align-items: center;">
+        <span style="font-size:2rem;">🔒</span>
+        <div>
+          <div style="color:var(--gold); font-weight:600; margin-bottom:4px;">සම්පූර්ණ රහස්‍යභාවය</div>
+          <div style="font-size:0.85rem; opacity:0.7;">ඔබේ ගැටලු ඔබ දෙකොනම</div>
+        </div>
+      </div>
+      <div style="background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; padding: 20px 24px; display: flex; gap: 16px; align-items: center;">
+        <span style="font-size:2rem;">⭐</span>
+        <div>
+          <div style="color:var(--gold); font-weight:600; margin-bottom:4px;">ගුණාත්මක ප්‍රතිඵල</div>
+          <div style="font-size:0.85rem; opacity:0.7;">5000+ සතුටු ගනුදෙනුකාරයන්</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<div class="testimonials-bg">
+<section id="testimonials">
+  <div class="section-title">
+    <h3>⭐ ගනුදෙනුකාරයන්ගේ විශ්වාස</h3>
+    <p>ඔවුන්ගේ ජීවිතය හොඳ වූ ආකාරය ඔවුන්ම කියන්නේ</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <div class="testi-text">
+        "මගේ ව්‍යාපාරය 2 වසරක් ලාභ නොලැබ, ණය ගොඩ ගැසී තිබ්බා. ගුරුතුමා ලඟ ශාස්ත්‍රයෙන් 
+        සකස් කරපු යන්ත්‍රය ගෙදර දැම්මාට පස්සේ 3 මාසෙන් ව්‍යාපාරය හැරුණා. ස්තූතියි!"
+      </div>
+      <div class="testi-author">ශ්‍රී. රාජේශ් — කොළඹ</div>
+      <div class="testi-loc">ව්‍යාපාරික ශාස්ත්‍ර</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <div class="testi-text">
+        "හේරූ ගිය ආදරවන්තයා ආපසු ගෙනෙන්නෙ නෑ කිව්ව ගොඩාක් ගුරුකම් කාරයෝ. 
+        ඒ මහතා 45 දිනෙකින් ආපහු ගෙනාවා. ළඟදීම විවාහ. ගොඩාක් ස්තූතිය!"
+      </div>
+      <div class="testi-author">නිලූෂා — ගම්පහ</div>
+      <div class="testi-loc">ආදර ශාස්ත්‍ර</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <div class="testi-text">
+        "ගෙදර ශාප ගෙවල්. දෙමාපියන් මාරු ශ්‍රවණය, ළමයිට රෝගී. ශාන්තිකර්ම කලාට 
+        පස්සේ ගෙදර සාමය ගෙනාවා. දෙමාපියන් දෙන්නාම සොච්චම්. ස්තූතිය!"
+      </div>
+      <div class="testi-author">ජයවර්ධන — කළුතර</div>
+      <div class="testi-loc">ගෘහ ශාන්තිකර්ම</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-title">
+    <h3>📞 සම්බන්ධ වන්න</h3>
+    <p>ඔබේ ගැටලුව රහස්‍යව දන්වන්න — ශ්‍රේෂ්ඨ විසඳුමක් ලබා ගන්න</p>
+  </div>
+  <div class="contact-wrapper">
+    <div class="contact-info">
+      <h4>සෘජු සම්බන්ධකතා</h4>
+      <p>ඕනෑම වේලාවක ඔබට සම්බන්ධ කළ හැකිය. ඔබේ ගැටලු සම්පූර්ණ රහසිගතව සාකච්ඡා කෙරේ.</p>
+      
+      <div class="contact-detail">
+        <span class="icon">📞</span>
+        <div class="info">
+          <strong>දුරකථනය</strong>
+          +94 XX XXX XXXX
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="icon">💬</span>
+        <div class="info">
+          <strong>WhatsApp</strong>
+          +94 XX XXX XXXX
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="icon">📍</span>
+        <div class="info">
+          <strong>ස්ථානය</strong>
+          ශ්‍රී ලංකාව (දිස්ත්‍රික්ක 25ම)
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="icon">🕐</span>
+        <div class="info">
+          <strong>සේවා කාලය</strong>
+          24 පැය — 7 දිනයම
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h4 style="color: var(--gold); margin-bottom: 20px;">📝 ඔබේ ගැටලුව යවන්න</h4>
+      <div class="contact-form">
+        <div class="form-group">
+          <label>ඔබේ නම *</label>
+          <input type="text" placeholder="ඔබේ නම ලියන්න">
+        </div>
+        <div class="form-group">
+          <label>දුරකථන අංකය *</label>
+          <input type="tel" placeholder="+94 XX XXX XXXX">
+        </div>
+        <div class="form-group">
+          <label>ගැටලු වර්ගය</label>
+          <select>
+            <option>ගැටලු වර්ගය තෝරන්න</option>
+            <option>ආදර ගැටලු</option>
+            <option>ව්‍යාපාරික ගැටලු</option>
+            <option>ගෙදර ශාන්තිකර්ම</option>
+            <option>සතුරු ක්‍රියා</option>
+            <option>ග්‍රහ දෝශ</option>
+            <option>වෙනත්</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>ඔබේ ගැටලුව</label>
+          <textarea placeholder="ඔබේ ගැටලුව කෙටියෙන් ලියන්න..."></textarea>
+        </div>
+        <button class="btn-primary" onclick="alert('ඔබේ පණිවිඩය ලැබුණා. අපි ඉක්මනින් ඔබ හා සම්බන්ධ වෙමු!')">🔱 සම්බන්ධකතා යවන්න</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🕉 ශ්‍රී දේව මන්ත්‍ර ගුරුකම් සේවා</div>
+  <p>© 2024 ශ්‍රී දේව ගුරුකම් සේවා — සියලු හිමිකම් ඇවිරිණි</p>
+  <p style="margin-top:8px;">ශ්‍රී ලාංකේය ඉපැරණි ශාස්ත්‍ර ඔස්සේ ඔබේ ජීවිතය හොඳ කිරීමට</p>
+</footer>
+
+<script>
+  // Create particles
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 15) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
+    container.appendChild(p);
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Intersection observer for fade-in
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .testi-card, .stat').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
